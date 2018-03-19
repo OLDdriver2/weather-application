@@ -181,3 +181,44 @@
         ((TextView) findViewById(R.id.fouth)).setText(dayNamesShort[(dayOfWeek++)%7]);
     }
 ```
+> --------------------------------------------------------------------------------
+> ![image](https://github.com/OLDdriver2/weather-application/blob/master/display/Splash.PNG?raw=true)
+> I add a splash for this app.And the SplashActivity will show up for 2 sec before the MainActivity show up.
+
+```
+package mg.studio.weatherappdesign;
+
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.content.Intent;
+public class Splash extends AppCompatActivity {
+    private final int SPLASH_DISPLAY_LENGTH=2000;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent mainIntent=new Intent(Splash.this,MainActivity.class);
+                Splash.this.startActivity(mainIntent);
+                Splash.this.finish();
+            }
+        },SPLASH_DISPLAY_LENGTH);
+    }
+}
+
+```
+> And the data will be updated even you don't touch the refresh button.
+
+```
+protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        new DownloadUpdate().execute("auto_ip");
+        setDate();
+        new DownloadForecast().execute("auto_ip");
+
+    }
+```
